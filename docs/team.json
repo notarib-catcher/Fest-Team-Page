@@ -2,13 +2,14 @@
   "_id": "uuidv4",
   "name": "abcdef",
   "members": [
-    "a@gmail.com",
-    "b@gmail.com",
-    "c@gmail.com"
+    {"name": "aperson","email": "a@gmail.com"},
+    {"name": "bperson","email": "b@gmail.com"},
+    {"name": "cperson","email": "c@gmail.com"}
   ],
   "joinCode": "ABCDEF",
   "allowJoin": true,
   "owner": "a@gmail.com",
+  "ownername":"aperson",
   "event": "event_id",
-  "maxmem": 3
+  "maxmem": 4
 }

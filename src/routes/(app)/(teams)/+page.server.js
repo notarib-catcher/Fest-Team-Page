@@ -11,6 +11,15 @@ const t_users = database.collection(process.env.DB_COLL_PREFIX + "users")
 const t_events = database.collection(process.env.DB_COLL_PREFIX + "events")
 /*end standard boilerplate*/
 
+
+const projection = {
+    _id: 0
+}
+
+
+const options = {
+    projection: projection
+}
 export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} */ event) => {
     //Check for login and registration
     const session = await event.locals.getSession();
@@ -24,4 +33,13 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     }
 
     //Registered user
+    const teams_query = {
+        members: {
+            $elemMatch:{
+                email: session.user.email
+            }
+        }
+    }
+    const teams = await t_teams.find(teams_query, options).toArray()
+    return {user: session.user, teams: teams}
 }

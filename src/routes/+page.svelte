@@ -95,61 +95,66 @@
 
     <div class="rightsidediv bg-white bg-opacity-40 rounded-lg">
         {#if currentTeamIndex >= 0}
-            <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">{data.teams[currentTeamIndex].name}</div>
+            <div class=" h-full overflow-clip">
+                <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">{data.teams[currentTeamIndex].name}</div>
 
-            <div class=" px-4 py-2 bg-gradient-to-bl from-[#f6635c] to-[#f6635c] bg-clip-text text-transparent">
-                {#if currentTeam.owner != data.user.email}
-                    <span class="font-extralight">Owned by</span> {currentTeam.ownername} ({currentTeam.owner})
-                {:else}
-                    <span class="font-extralight">Owned by </span> <span class="  font-bold "> you.</span>
-                {/if}
-                <br>
-                {#if currentTeam.allowjoin}
-                    <span class="font-extralight">Invite people using </span> <button on:click = {() => {navigator.clipboard.writeText(new URL("/invite/"+ currentTeam.joincode.toUpperCase() + "/", window.location.origin).toString()); copytext = "Copied!"; setTimeout(() => {copytext = "Click to Copy!"}, 1000)}} class=" relative ctcbtn font-bold text-[#f6635c]">this link.<span class="tooltip bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap -translate-y-[30px] p-1 rounded-md">{copytext}</span></button> <br class="md:hidden">(Invite code: <span class="select-text font-bold">{currentTeam.joincode}</span>)
-                {:else}
-                    The team is not accepting new members.
-                {/if}
-                <br>
-                <span class="font-extralight"> Competing in </span> <span class="font-bold"> {eventArr[currentTeam.event] || currentTeam.event}</span>
-            </div>
-
-
-            <div>
-                <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
-
-                <div class=" p-4 h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1">
-                    {#each currentTeam.members as member , i}
-
-                        <div class=" relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">
-                            <div class=" absolute mx-auto h-full left-0 top-0 w-fit flex items-center justify-center pl-4">
-                                <div>
-                                    <span class=" font-bold ">{member.name}</span>
-                                    <br>
-                                    <span class="font-extralight">{member.email}</span>
-                                </div>
-                            </div>
-                            <div class=" absolute h-full right-0 top-0 pr-4 w-fit flex items-center justify-center">
-                                {#if member.email === currentTeam.owner}
-                                    <img class="relative pr-1 box-content" src={crown} width="20px" height="20px">
-                                {:else if member.email === data.user.email}
-                                    <form id={"kickselfform" + i} hidden method="POST">
-                                        <input name="email" type="text" value={member.email} hidden>
-                                        <input name="_id" type="text" value={currentTeam._id} hidden>
-                                    </form>
-                                    <button form={"kickselfform" + i} type="submit"><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={leave} width="20px" height="20px"></button>
-                                {:else if currentTeam.owner === data.user.email}
-                                    <form id={"kickform" + i} hidden method="POST">
-                                        <input name="email" type="text" value={member.email} hidden>
-                                        <input name="_id" type="text" value={currentTeam._id} hidden>
-                                    </form>
-                                    <button form={"kickform" + i} type="submit" ><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={xmark} width="20px" height="20px"></button>
-                                {/if}
-                            </div>
-                        </div>
-                    {/each}
+                <div class=" px-4 py-2 bg-gradient-to-bl from-[#f6635c] to-[#f6635c] bg-clip-text text-transparent">
+                    {#if currentTeam.owner != data.user.email}
+                        <span class="font-extralight">Owned by</span> {currentTeam.ownername} ({currentTeam.owner})
+                    {:else}
+                        <span class="font-extralight">Owned by </span> <span class="  font-bold "> you.</span>
+                    {/if}
+                    <br>
+                    {#if currentTeam.allowjoin}
+                        <span class="font-extralight">Invite people using </span> <button on:click = {() => {navigator.clipboard.writeText(new URL("/invite/"+ currentTeam.joincode.toUpperCase() + "/", window.location.origin).toString()); copytext = "Copied!"; setTimeout(() => {copytext = "Click to Copy!"}, 1000)}} class=" relative ctcbtn font-bold text-[#f6635c]">this link.<span class="tooltip bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap -translate-y-[30px] p-1 rounded-md">{copytext}</span></button> <br class="md:hidden">(Invite code: <span class="select-text font-bold">{currentTeam.joincode}</span>)
+                    {:else}
+                        The team is not accepting new members.
+                    {/if}
+                    <br>
+                    <span class="font-extralight"> Competing in </span> <span class="font-bold"> {eventArr[currentTeam.event] || currentTeam.event}</span>
                 </div>
 
+
+                <div class="relative flex flex-col overflow-auto h-full">
+                    <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
+                    <div class=" h-full noscrollbar mb-[50px] ">
+                        <div class=" p-4  noscrollbar overflow-auto h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 ">
+                            {#each currentTeam.members as member , i}
+
+                                <div class=" overflow-auto relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">
+                                    <div class=" absolute mx-auto h-full left-0 top-0 w-fit flex items-center justify-center pl-4">
+                                        <div>
+                                            <span class=" font-bold ">{member.name}</span>
+                                            <br>
+                                            <span class="font-extralight">{member.email}</span>
+                                        </div>
+                                    </div>
+                                    <div class=" absolute h-full right-0 top-0 pr-4 w-fit flex items-center justify-center">
+                                        {#if member.email === currentTeam.owner}
+                                            <img class="relative pr-1 box-content" src={crown} width="20px" height="20px">
+                                        {:else if member.email === data.user.email}
+                                            <form id={"kickselfform" + i} hidden method="POST">
+                                                <input name="email" type="text" value={member.email} hidden>
+                                                <input name="_id" type="text" value={currentTeam._id} hidden>
+                                            </form>
+                                            <button form={"kickselfform" + i} type="submit"><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={leave} width="20px" height="20px"></button>
+                                        {:else if currentTeam.owner === data.user.email}
+                                            <form id={"kickform" + i} hidden method="POST">
+                                                <input name="email" type="text" value={member.email} hidden>
+                                                <input name="_id" type="text" value={currentTeam._id} hidden>
+                                            </form>
+                                            <button form={"kickform" + i} type="submit" ><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={xmark} width="20px" height="20px"></button>
+                                        {/if}
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
+
         {:else}
             <div class=" h-full w-full flex items-center justify-center">
                 <div class=" h-fit w-fit">
@@ -194,9 +199,7 @@
     }
 
     .noscrollbar{
-        box-sizing: padding-box;
-        -moz-box-sizing: padding-box;
-        -webkit-box-sizing: padding-box;
+
         padding-bottom: 60px;
         overflow: auto;
         -ms-overflow-style: none; /* for Internet Explorer, Edge */

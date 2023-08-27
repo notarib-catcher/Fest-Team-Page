@@ -11,9 +11,11 @@ html{
     user-select: none;
 }
 
-html::-webkit-scrollbar {
+*::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
 }
+
+
 
 .isval{
     color: #88ecfd;

@@ -60,7 +60,7 @@
                 {/if}
                 <br>
                 {#if currentTeam.allowjoin}
-                    <span class="font-extralight">Invite people using </span> <button on:click = {() => {navigator.clipboard.writeText(new URL("/invite/"+ currentTeam.joincode.toUpperCase() + "/", window.location.origin).toString()); copytext = "Copied!"; setTimeout(() => {copytext = "Click to Copy!"}, 1000)}} class=" relative ctcbtn font-bold">this link.<span class="tooltip bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap -translate-y-[30px] p-1 rounded-md">{copytext}</span></button> <br class="md:hidden">(Invite code: <span class="select-text font-bold">{currentTeam.joincode}</span>)
+                    <span class="font-extralight">Invite people using </span> <button on:click = {() => {navigator.clipboard.writeText(new URL("/invite/"+ currentTeam.joincode.toUpperCase() + "/", window.location.origin).toString()); copytext = "Copied!"; setTimeout(() => {copytext = "Click to Copy!"}, 1000)}} class=" relative ctcbtn font-bold text-purple-900">this link.<span class="tooltip bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap -translate-y-[30px] p-1 rounded-md">{copytext}</span></button> <br class="md:hidden">(Invite code: <span class="select-text font-bold">{currentTeam.joincode}</span>)
                 {:else}
                     The team is not accepting new members.
                 {/if}

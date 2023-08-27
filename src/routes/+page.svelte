@@ -1,6 +1,6 @@
 <script>
-    import crown from "../../../assets/crown-solid.svg"
-    import xmark from "../../../assets/xmark-solid.svg"
+    import crown from "../assets/crown-solid.svg"
+    import xmark from "../assets/xmark-solid.svg"
 
     export let data
     let currentTeamIndex = -1

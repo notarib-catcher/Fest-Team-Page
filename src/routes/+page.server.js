@@ -1,5 +1,5 @@
 /*standard boilerplate*/
-import {redirect} from "@sveltejs/kit";
+import {fail, redirect} from "@sveltejs/kit";
 import * as dotenv from 'dotenv' ;
 dotenv.config()
 
@@ -37,4 +37,78 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     }
     const teams = await t_teams.find(teams_query, options).toArray()
     return {user: session.user, teams: teams}
+}
+
+export const actions = {
+    default: async (event) => {
+        const session = await event.locals.getSession()
+
+        if (!session?.user) {
+            throw redirect(303, '/login'); //Not logged in => No access
+        }
+
+        const curr_user = await t_users.findOne({email:session.user.email})
+        if(!curr_user){
+            throw redirect(303,'/register')
+        }
+
+        const request = event.request
+        const data = await request.formData()
+        const email = data.get('email')
+
+        if(!email){
+            return fail(400, "malformed")
+        }
+
+
+        const teamID = data.get('_id')
+
+        if(!teamID){
+            return fail(400, "malformed")
+        }
+
+        const team = await t_teams.findOne({_id: teamID})
+
+        if(!team){
+            return fail(404, "No team found")
+        }
+        //check if owner removal attempt
+        if(email == team.owner){
+            return fail(403, "Cannot remove team owner")
+        }
+
+
+        //only the owner can remove someone else
+        if(email !== session.user.email){
+            if(session.user.email !== team.owner){
+                return fail(403, "Not team owner")
+            }
+        }
+
+        // Either the owner is removing someone else, or someone is removing themselves.
+        // This is allowed.
+        // Process the request
+
+        //prep the new doc
+        delete team._id
+
+        const newTeamArray = []
+        for (let member of team.members){
+            if(member.email !== email){
+                newTeamArray.push(member)
+            }
+        }
+
+        team.members = newTeamArray
+
+        if(newTeamArray.length < team.maxmem){
+            team.allowjoin = true
+        }
+
+        await t_teams.findOneAndUpdate({_id: teamID}, {$set: team})
+
+        throw redirect(302, "/?rsuccess=yes&team=" + teamID)
+
+
+    }
 }

@@ -1,6 +1,8 @@
 <script>
     import crown from "../assets/crown-solid.svg"
     import xmark from "../assets/xmark-solid.svg"
+    import {onMount} from "svelte";
+    import {browser} from "$app/environment";
 
     export let data
     let currentTeamIndex = -1
@@ -10,8 +12,36 @@
     const eventArr = {
         "event-1" : "An Example Event"
     }
-</script>
 
+    let remsuccess = false
+    onMount(() => {
+        if(browser){
+            const queryString = window.location.search
+            const urlParams = new URLSearchParams(queryString)
+            remsuccess = urlParams.has('rsuccess')
+            setTimeout(() => {remsuccess = false}, 5000)
+            const URLteam = urlParams.get('team')
+
+            for(let [i, team] of data.teams.entries()){
+                if(team._id === URLteam){
+                    currentTeamIndex = i;
+                }
+            }
+
+            window.history.pushState({}, document.title, window.location.pathname);
+        }
+    })
+</script>
+{#if remsuccess}
+    <div class=" h-fit w-screen fixed flex items-center justify-center pointer-events-none select-none">
+        <div class=" relative z-20 top-0  text-2xl font-semibold h-[50px] bg-black bg-opacity-70 w-fit p-2 rounded-lg mx-auto ModalPopIn">
+            <div class="bg-clip-text bg-[#e4c359]  text-transparent">
+                Member kicked successfully
+            </div>
+        </div>
+    </div>
+
+{/if}
 <div class="fixed -z-50 left-0 top-0 w-[100dvw] h-[100dvh] bg-gradient-to-bl from-[#fe786f] to-[#f9baa8]">
 </div>
 <div class=" w-screen flex flex-row">
@@ -72,7 +102,7 @@
             <div>
                 <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
 
-                <div class=" p-4 h-full w-full grid grid-cols-2 max-md:grid-cols-1 grid-flow-col">
+                <div class=" p-4 h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 grid-flow-col">
                     {#each currentTeam.members as member , i}
 
                         <div class=" relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">
@@ -123,10 +153,6 @@
         opacity: 1;
     }
 
-    .ctcbtn:focus > .tooltip{
-        opacity: 1;
-    }
-
     .ctcbtn > .tooltip{
 
         opacity: 0;
@@ -160,5 +186,32 @@
         overflow: auto;
         -ms-overflow-style: none; /* for Internet Explorer, Edge */
         scrollbar-width: none; /* for Firefox */
+    }
+
+    .ModalPopIn{
+        transform: translateY(-200px);
+        animation-name: popinModal;
+        animation-duration: 4000ms;
+        animation-iteration-count: 1;
+        animation-fill-mode: forward;
+    }
+
+
+
+
+
+    @keyframes popinModal{
+        0%{
+            transform: translateY(-200px);
+        }
+        25%{
+            transform: translateY(5px);
+        }
+        50%{
+            transform: translateY(5px);
+        }
+        100%{
+            transform: translateY(-200px);
+        }
     }
 </style>

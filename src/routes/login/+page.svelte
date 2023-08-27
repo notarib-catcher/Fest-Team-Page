@@ -4,7 +4,10 @@
     import {browser} from "$app/environment";
     onMount(() => {
         if(browser){
-            signIn('google',{callbackUrl:"/"})
+            const queryString = window.location.search
+            const urlParams = new URLSearchParams(queryString)
+            const invite = urlParams.get('invite')
+            signIn('google',{callbackUrl:(invite)?"/invite/"+invite:"/"})
         }
     })
 </script>

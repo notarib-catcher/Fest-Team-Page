@@ -27,7 +27,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     }
 
     if (!session?.user) {
-        throw redirect(302, '/login'); //Not logged in => No access
+        throw redirect(302, '/login?invite=' + slug); //Not logged in => No access
     }
 
     const curr_user = await t_users.findOne({email:session.user.email})

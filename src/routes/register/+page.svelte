@@ -11,6 +11,8 @@
     let regnum
     let submitbtn
 
+    let invite = ""
+
     $: validname = (name?.length > 5)
     $: validph = (phnum?.length === 10)
     onMount( ()=> {
@@ -32,6 +34,11 @@
             setInterval(async () => {
                 submitbtn.disabled = !(validname && validph)
             }, 100)
+
+            const queryString = window.location.search
+            const urlParams = new URLSearchParams(queryString)
+            invite = urlParams.get('invite')
+            console.log("Invite: "+invite)
         }
 
 
@@ -49,7 +56,7 @@
                     Basic Info
                 </h2>
                 <div class="user-box">
-                    <input name="name" bind:value={name}  pattern={"^([A-Za-z]{1,30}(\\s|$)){1,3}"} type="text" maxlength="90" required>
+                    <input name="name" bind:value={name} type="text" maxlength="90" required>
                     <label>
                         Name<span class="text-red-600 " hidden={validname}>*</span>
                     </label>
@@ -103,6 +110,9 @@
                     <br>
                     Your other details will be shared with the organisers of MITB FALAK (SURGE) 2023.
                 </div>
+                {#if invite && invite !== ""}
+                    <input type="text" name="invite" value={invite} hidden>
+                {/if}
             </form>
         </div>
     </div>

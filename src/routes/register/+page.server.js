@@ -54,6 +54,8 @@ export const actions = {
         const name = data.get('name').replaceAll(/[^A-Za-z\s]/g, "").trim() || null
         const phone = data.get('phone').trim() || null
 
+        const invite = data.get("invite") || null
+
         if(!phoneRegex.test(phone) || !name || name?.length < 1){
             return fail(422, "Phone and name are needed")
         }
@@ -96,6 +98,7 @@ export const actions = {
         }
 
         await t_users.insertOne(doc)
-        throw redirect(302, '/')
+
+        throw redirect(302, (invite?"/invite/"+invite:"/"))
     }
 }

@@ -1,5 +1,6 @@
 /*standard boilerplate*/
 import {redirect} from "@sveltejs/kit";
+
 const lrRegex = new RegExp('^[a-z0-9._-]+@learner\\.manipal\\.edu$')
 const regnumRegex = new RegExp('^[0-9]+$')
 const phoneRegex = new RegExp('^[0-9]{10}$')
@@ -8,7 +9,7 @@ import { fail } from '@sveltejs/kit';
 dotenv.config()
 
 import { MongoClient } from 'mongodb';
-import {resolvePackageData} from "vite";
+
 const dbclient = new MongoClient(process.env.MONGO_URL);
 const database = dbclient.db(process.env.MONGO_DB_NAME);
 const t_teams = database.collection(process.env.DB_COLL_PREFIX + "teams")

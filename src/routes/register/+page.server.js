@@ -21,7 +21,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     //Check for login and registration (or rather, lack of registration since this is WHY they are on this page)
     const session = await event.locals.getSession();
     if (!session?.user) {
-        throw redirect(303, '/login'); //Not logged in => No access
+        throw redirect(302, '/login'); //Not logged in => No access
     }
 
     const curr_user = await t_users.findOne({email:session.user.email})

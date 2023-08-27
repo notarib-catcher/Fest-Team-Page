@@ -44,12 +44,12 @@ export const actions = {
         const session = await event.locals.getSession()
 
         if (!session?.user) {
-            throw redirect(303, '/login'); //Not logged in => No access
+            throw redirect(302, '/login'); //Not logged in => No access
         }
 
         const curr_user = await t_users.findOne({email:session.user.email})
         if(!curr_user){
-            throw redirect(303,'/register')
+            throw redirect(302,'/register')
         }
 
         const request = event.request

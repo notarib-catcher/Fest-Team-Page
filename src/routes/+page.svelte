@@ -13,13 +13,19 @@
         "event-1" : "An Example Event"
     }
 
-    let remsuccess = false
+    let rsuccess = false
+    let alreadyinevent = false
     onMount(() => {
         if(browser){
             const queryString = window.location.search
             const urlParams = new URLSearchParams(queryString)
-            remsuccess = urlParams.has('rsuccess')
-            setTimeout(() => {remsuccess = false}, 5000)
+            rsuccess = urlParams.has('rsuccess')
+            setTimeout(() => {rsuccess = false}, 5000)
+
+            alreadyinevent = urlParams.has('alreadyinevent')
+            setTimeout(() => {alreadyinevent = false}, 5000)
+
+
             const URLteam = urlParams.get('team')
 
             for(let [i, team] of data.teams.entries()){
@@ -32,7 +38,7 @@
         }
     })
 </script>
-{#if remsuccess}
+{#if rsuccess}
     <div class=" h-fit w-screen fixed flex items-center justify-center pointer-events-none select-none">
         <div class=" relative z-20 top-0  text-2xl font-semibold h-[50px] bg-black bg-opacity-70 w-fit p-2 rounded-lg mx-auto ModalPopIn">
             <div class="bg-clip-text bg-[#e4c359]  text-transparent">
@@ -40,7 +46,15 @@
             </div>
         </div>
     </div>
-
+{/if}
+{#if alreadyinevent}
+    <div class=" h-fit w-screen fixed flex items-center justify-center pointer-events-none select-none">
+        <div class=" relative z-20 top-0  text-xl font-semibold h-[50px] bg-black bg-opacity-70 w-fit p-2 rounded-lg mx-auto ModalPopIn">
+            <div class="bg-clip-text bg-[#e4c359]  text-transparent">
+                Already in a team for that event
+            </div>
+        </div>
+    </div>
 {/if}
 <div class="fixed -z-50 left-0 top-0 w-[100dvw] h-[100dvh] bg-gradient-to-bl from-[#fe786f] to-[#f9baa8]">
 </div>

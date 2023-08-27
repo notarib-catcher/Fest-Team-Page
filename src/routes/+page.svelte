@@ -115,10 +115,10 @@
                 </div>
 
 
-                <div class="relative flex flex-col overflow-auto h-full">
+                <div class="relative flex flex-col overflow-hidden h-full">
                     <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
-                    <div class=" h-full noscrollbar mb-[50px] ">
-                        <div class=" p-4  noscrollbar overflow-auto h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 ">
+                    <div class=" h-full pb-[200px] ">
+                        <div class=" p-4 mt-3  noscrollbar overflow-auto h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 ">
                             {#each currentTeam.members as member , i}
 
                                 <div class=" overflow-auto relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">
@@ -150,8 +150,6 @@
                             {/each}
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -159,7 +157,7 @@
             <div class=" h-full w-full flex items-center justify-center">
                 <div class=" h-fit w-fit">
                     <span class=" text-black text-opacity-40 text-2xl">
-                        Select a team from the left
+                        Select a team from the menu
                     </span>
                 </div>
             </div>

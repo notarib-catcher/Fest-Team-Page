@@ -116,7 +116,7 @@
             <div>
                 <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
 
-                <div class=" p-4 h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 grid-flow-col">
+                <div class=" p-4 h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1">
                     {#each currentTeam.members as member , i}
 
                         <div class=" relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">

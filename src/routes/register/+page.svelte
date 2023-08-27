@@ -99,7 +99,7 @@
 
                 <input type="submit" bind:this={submitbtn} value="Submit" class=" disabled:bg-transparent transition-all duration-200 text-white font-extrabold border-2 p-2 rounded-lg bg-white bg-opacity-0 hover:bg-opacity-20 focus:bg-opacity-20 active:bg-opacity-20 disabled:text-gray-400 disabled:border-gray-500" formnovalidate disabled>
                 <div class=" font-extralight mt-4 text-xs text-white">
-                    Your name and gmail will be shown to your team members to help them identify you.
+                    Your name and gmail ID will be shown to your team members to help them identify you.
                     <br>
                     Your other details will be shared with the organisers of MITB FALAK (SURGE) 2023.
                 </div>

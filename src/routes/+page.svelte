@@ -1,6 +1,7 @@
 <script>
     import crown from "../assets/crown-solid.svg"
     import xmark from "../assets/xmark-solid.svg"
+    import leave from "../assets/arrow-right-from-bracket-solid.svg"
     import {onMount} from "svelte";
     import {browser} from "$app/environment";
 
@@ -42,7 +43,7 @@
     <div class=" h-fit w-screen fixed flex items-center justify-center pointer-events-none select-none">
         <div class=" relative z-20 top-0  text-2xl font-semibold h-[50px] bg-black bg-opacity-70 w-fit p-2 rounded-lg mx-auto ModalPopIn">
             <div class="bg-clip-text bg-[#e4c359]  text-transparent">
-                Member kicked successfully
+                Removed successfully
             </div>
         </div>
     </div>
@@ -129,19 +130,19 @@
                             </div>
                             <div class=" absolute h-full right-0 top-0 pr-4 w-fit flex items-center justify-center">
                                 {#if member.email === currentTeam.owner}
-                                    <img class="relative" src={crown} width="20px" height="20px">
+                                    <img class="relative pr-1 box-content" src={crown} width="20px" height="20px">
                                 {:else if member.email === data.user.email}
                                     <form id={"kickselfform" + i} hidden method="POST">
                                         <input name="email" type="text" value={member.email} hidden>
                                         <input name="_id" type="text" value={currentTeam._id} hidden>
                                     </form>
-                                    <button form={"kickselfform" + i} type="submit"><img class="relative" src={xmark} width="20px" height="20px"></button>
+                                    <button form={"kickselfform" + i} type="submit"><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={leave} width="20px" height="20px"></button>
                                 {:else if currentTeam.owner === data.user.email}
                                     <form id={"kickform" + i} hidden method="POST">
                                         <input name="email" type="text" value={member.email} hidden>
                                         <input name="_id" type="text" value={currentTeam._id} hidden>
                                     </form>
-                                    <button form={"kickform" + i} type="submit"><img class="relative" src={xmark} width="20px" height="20px"></button>
+                                    <button form={"kickform" + i} type="submit" ><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={xmark} width="20px" height="20px"></button>
                                 {/if}
                             </div>
                         </div>

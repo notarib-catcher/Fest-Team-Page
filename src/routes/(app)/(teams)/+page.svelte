@@ -12,12 +12,12 @@
     }
 </script>
 
-<div class="fixed -z-50 left-0 top-0 w-[100dvw] h-[100dvh] bg-gradient-to-bl from-blue-500 to-purple-100">
+<div class="fixed -z-50 left-0 top-0 w-[100dvw] h-[100dvh] bg-gradient-to-bl from-[#fe786f] to-[#f9baa8]">
 </div>
 <div class=" w-screen flex flex-row">
     <div class=" max-md:hidden relative overflow-y-hidden overflow-x-clip  leftbar mt-[20px] rounded-lg left-[10px]  items-start w-screen md:w-[40%] bg-opacity-40 bg-white lg:w-[30%] xl:w-[25%]">
 
-        <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  mb-2 text-transparent bg-gradient-to-bl from-blue-800 to-purple-800 pl-4 pt-2">Your Teams</div>
+        <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  mb-2 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Your Teams</div>
         <div class="noscrollbar h-full overflow-scroll">
             {#each data.teams as team, i}
                 {#if currentTeamIndex != i}
@@ -50,9 +50,9 @@
 
     <div class="rightsidediv bg-white bg-opacity-40 rounded-lg">
         {#if currentTeamIndex >= 0}
-            <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  text-transparent bg-gradient-to-bl from-blue-800 to-purple-800 pl-4 pt-2">{data.teams[currentTeamIndex].name}</div>
+            <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">{data.teams[currentTeamIndex].name}</div>
 
-            <div class=" px-4 py-2 bg-gradient-to-bl from-blue-800 to-purple-800 bg-clip-text text-transparent">
+            <div class=" px-4 py-2 bg-gradient-to-bl from-[#f6635c] to-[#f6635c] bg-clip-text text-transparent">
                 {#if currentTeam.owner != data.user.email}
                     <span class="font-extralight">Owned by</span> {currentTeam.ownername} ({currentTeam.owner})
                 {:else}
@@ -60,7 +60,7 @@
                 {/if}
                 <br>
                 {#if currentTeam.allowjoin}
-                    <span class="font-extralight">Invite people using </span> <button on:click = {() => {navigator.clipboard.writeText(new URL("/invite/"+ currentTeam.joincode.toUpperCase() + "/", window.location.origin).toString()); copytext = "Copied!"; setTimeout(() => {copytext = "Click to Copy!"}, 1000)}} class=" relative ctcbtn font-bold text-purple-900">this link.<span class="tooltip bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap -translate-y-[30px] p-1 rounded-md">{copytext}</span></button> <br class="md:hidden">(Invite code: <span class="select-text font-bold">{currentTeam.joincode}</span>)
+                    <span class="font-extralight">Invite people using </span> <button on:click = {() => {navigator.clipboard.writeText(new URL("/invite/"+ currentTeam.joincode.toUpperCase() + "/", window.location.origin).toString()); copytext = "Copied!"; setTimeout(() => {copytext = "Click to Copy!"}, 1000)}} class=" relative ctcbtn font-bold text-[#f6635c]">this link.<span class="tooltip bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap -translate-y-[30px] p-1 rounded-md">{copytext}</span></button> <br class="md:hidden">(Invite code: <span class="select-text font-bold">{currentTeam.joincode}</span>)
                 {:else}
                     The team is not accepting new members.
                 {/if}
@@ -70,16 +70,18 @@
 
 
             <div>
-                <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-blue-800 to-purple-800 pl-4 pt-2">Members</div>
+                <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
 
                 <div class=" p-4 h-full w-full grid grid-cols-2 max-md:grid-cols-1 grid-flow-col">
                     {#each currentTeam.members as member , i}
 
                         <div class=" relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">
-                            <div class=" absolute mx-auto h-full my-auto">
-                                <span class=" font-bold ">{member.name}</span>
-                                <br>
-                                <span class="font-extralight">{member.email}</span>
+                            <div class=" absolute mx-auto h-full left-0 top-0 w-fit flex items-center justify-center pl-4">
+                                <div>
+                                    <span class=" font-bold ">{member.name}</span>
+                                    <br>
+                                    <span class="font-extralight">{member.email}</span>
+                                </div>
                             </div>
                             <div class=" absolute h-full right-0 top-0 pr-4 w-fit flex items-center justify-center">
                                 {#if member.email === currentTeam.owner}
@@ -102,6 +104,14 @@
                     {/each}
                 </div>
 
+            </div>
+        {:else}
+            <div class=" h-full w-full flex items-center justify-center">
+                <div class=" h-fit w-fit">
+                    <span class=" text-black text-opacity-40 text-2xl">
+                        Select a team from the left
+                    </span>
+                </div>
             </div>
         {/if}
     </div>

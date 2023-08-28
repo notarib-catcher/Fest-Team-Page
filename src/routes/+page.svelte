@@ -5,6 +5,7 @@
     import enterarrow from "../assets/arrow-right-solid.svg"
     import {onMount} from "svelte";
     import {browser} from "$app/environment";
+    import {signOut} from "@auth/sveltekit/client";
 
     let invcode
     const hitkey = async (e) => {
@@ -77,8 +78,8 @@
 </div>
 <div class=" w-screen flex flex-row">
     <div class=" max-md:hidden relative overflow-y-hidden overflow-x-clip  leftbar mt-[20px] rounded-lg left-[10px]  items-start w-screen md:w-[40%] bg-opacity-40 bg-white lg:w-[30%] xl:w-[25%]">
-
-        <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100  mb-2 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Your Teams</div>
+        <button class="absolute top-0 right-0 mt-2 mr-2 underline text-[#f6635c] pointer-events-auto z-30" on:click={() => signOut({callbackUrl:"/login"})}>Switch Account</button>
+        <div class="relative bg-clip-text w-full h-[40px] border-b-2 border-blue-100  mb-2 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Your Teams</div>
         <div class="noscrollbar h-full overflow-scroll">
             {#each data.teams as team, i}
                 {#if currentTeamIndex != i}
@@ -182,7 +183,7 @@
                     <div class=" mt-2 w-full text-center text-black text-opacity-40">
                         or
                     </div>
-                    <a href="#" class="absolute translate-y-8 bottom-0 w-full text-center text-black text-opacity-40 text-2xl underline">Create a team</a>
+                    <a href="#" class="absolute  text-[#f6635c] translate-y-8 bottom-0 w-full text-center text-2xl underline">Create a team</a>
                 </div>
             </div>
         {:else}

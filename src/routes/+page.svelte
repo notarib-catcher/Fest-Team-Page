@@ -2,8 +2,21 @@
     import crown from "../assets/crown-solid.svg"
     import xmark from "../assets/xmark-solid.svg"
     import leave from "../assets/arrow-right-from-bracket-solid.svg"
+    import enterarrow from "../assets/arrow-right-solid.svg"
     import {onMount} from "svelte";
     import {browser} from "$app/environment";
+
+    let invcode
+    const hitkey = async (e) => {
+
+        if(invcode.length !== 6){
+            return
+        }
+
+        if (e.key === "Enter" || e.bypass){
+            window.location = "/invite/" + invcode
+        }
+    }
 
     export let data
     let currentTeamIndex = -1
@@ -26,6 +39,9 @@
             alreadyinevent = urlParams.has('alreadyinevent')
             setTimeout(() => {alreadyinevent = false}, 5000)
 
+            document.addEventListener('input', async ()=>{
+                invcode = invcode.toUpperCase().replaceAll(/[^A-Z]/g,"")
+            })
 
             const URLteam = urlParams.get('team')
 
@@ -85,7 +101,7 @@
                     </div>
                 {/if}
             {/each}
-            <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md">
+            <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md" on:click={() => {currentTeamIndex = -2}}>
                 + Create or Join a team
             </button>
         </div>
@@ -117,8 +133,8 @@
 
                 <div class="relative flex flex-col overflow-hidden h-full">
                     <div class="bg-clip-text w-full h-[40px] border-b-2 border-blue-100 text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-4 pt-2">Members</div>
-                    <div class=" h-full pb-[200px] ">
-                        <div class=" p-4 mt-3  noscrollbar overflow-auto h-full gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 ">
+                    <div class=" h-full pb-[200px] noscrollbar overflow-auto ">
+                        <div class=" p-4 mt-3  noscrollbar h-fit gap-2 w-full grid grid-cols-2 max-md:grid-cols-1 mb-[100px] ">
                             {#each currentTeam.members as member , i}
 
                                 <div class=" overflow-auto relative bg-white w-full px-4 py-2 text-black h-[100px] rounded-lg shadow-xl">
@@ -152,7 +168,23 @@
                     </div>
                 </div>
             </div>
-
+        {:else if currentTeamIndex === -2}
+            <div class=" h-full w-full flex items-center justify-center">
+                <div class="relative h-fit w-fit">
+                    <div class="text-black text-opacity-40 w-full text-lefts text-2xl flex flex-col items-center justify-center">
+                        <div class="relative flex-nowrap flex w-fit pointer-events-none bg-black bg-opacity-0 focus-within:bg-opacity-20 border-white border-b-2 rounded-t-md transition-all duration-200 focus-within:border-blue-500 flex-row">
+                            <input type="text" size="11" bind:value={invcode} placeholder="Invite Code" class=" font-bold w-fit whitespace-nowrap pointer-events-auto tbox bg-opacity-0 bg-black p-2 text-left placeholder-[#f6635c]" on:keyup={hitkey}  maxlength="6">
+                            <button class="absolute right-0 align-middle top-[50%] translate-y-[-50%] pointer-events-auto mr-0.5" on:click={() => {hitkey({bypass:true})}}>
+                                <img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={enterarrow} width="20px" height="20px">
+                            </button>
+                        </div>
+                    </div>
+                    <div class=" mt-2 w-full text-center text-black text-opacity-40">
+                        or
+                    </div>
+                    <a href="#" class="absolute translate-y-8 bottom-0 w-full text-center text-black text-opacity-40 text-2xl underline">Create a team</a>
+                </div>
+            </div>
         {:else}
             <div class=" h-full w-full flex items-center justify-center">
                 <div class=" h-fit w-fit">
@@ -169,6 +201,10 @@
 <style>
     .ctcbtn:hover > .tooltip{
         opacity: 1;
+    }
+
+    div > .tbox:hover  div{
+        border-color: #88ecfd;
     }
 
     .ctcbtn > .tooltip{
@@ -210,6 +246,10 @@
         animation-duration: 4000ms;
         animation-iteration-count: 1;
         animation-fill-mode: forward;
+    }
+
+    .tbox{
+        outline: none;
     }
 
 

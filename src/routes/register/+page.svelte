@@ -10,11 +10,19 @@
     let insname
     let regnum
     let submitbtn
+    let constituent
+    let lemail
+    let outinstitute
 
     let invite = ""
+    let regevent = ""
 
     $: validname = (name?.length > 5)
     $: validph = (phnum?.length === 10)
+    $: validinstitute = (outinstitute?.length > 3 || mbstudent)
+    $: validlearner = (lemail?.endsWith("@learner.manipal.edu") || !mbstudent)
+    $: validregnum = (regnum?.length > 8 || !mbstudent)
+    $: validconstituent = (constituent?.length > 0 || !mbstudent)
     onMount( ()=> {
 
         document.addEventListener('input', async ()=>{
@@ -32,13 +40,13 @@
 
         if(browser){
             setInterval(async () => {
-                submitbtn.disabled = !(validname && validph)
+                submitbtn.disabled = !(validname && validph && validregnum && validconstituent && validlearner && validinstitute)
             }, 100)
 
             const queryString = window.location.search
             const urlParams = new URLSearchParams(queryString)
             invite = urlParams.get('invite')
-            console.log("Invite: "+invite)
+            regevent = urlParams.get('regevent')
         }
 
 
@@ -58,7 +66,7 @@
                 <div class="user-box">
                     <input name="name" bind:value={name} type="text" maxlength="90" required>
                     <label>
-                        Name<span class="text-red-600 " hidden={validname}>*</span>
+                        Name (As on College ID)<span class="text-red-600 " hidden={validname}>*</span>
                     </label>
                 </div>
                 <div class="user-box">
@@ -85,7 +93,7 @@
                 <label for="mbstudent" class="text-white">Student of MAHE BLR?</label><br>
 
                 <div class="user-box">
-                    <input name="lremail" type="text" bind:this={lrem} hidden={!mbstudent} required>
+                    <input name="lremail" type="text" bind:this={lrem} bind:value={lemail} hidden={!mbstudent} required>
                     <label hidden={!mbstudent}>
                         Learner email
                     </label>
@@ -96,22 +104,52 @@
                         Registration Number
                     </label>
                 </div>
+                <div class="text-white">
+                    <label hidden={!mbstudent}>
+                        Constituent Unit:
+                    </label>
+
+                    <select class="focus:outline-0 focus-within:outline-0 transition-all duration-300 bg-black bg-opacity-20 p-2 rounded-md" name="maheconstituent" list="constituents" hidden={!mbstudent} bind:value={constituent} required>
+                        <option value="">Select</option>
+                        <option value="MIT">MIT</option>
+                        <option value="SMI">SMI</option>
+                        <option value="DLHS">DLHS</option>
+                        <option value="DOC">DOC</option>
+                        <option value="MLS">MLS</option>
+                        <option value="TAPMI">TAPMI</option>
+                        <option value="DPP">DPP</option>
+                    </select>
+                </div>
+                <br hidden={!mbstudent}>
 
                 <div class="user-box">
-                    <input name="institute" type="text" bind:this={insname} hidden={mbstudent} required>
+                    <input name="institute" type="text" bind:this={insname} bind:value={outinstitute} hidden={mbstudent} required>
                     <label hidden={mbstudent}>
                         Your Institute
                     </label>
                 </div>
 
+
+
                 <input type="submit" bind:this={submitbtn} value="Submit" class=" disabled:bg-transparent transition-all duration-200 text-white font-extrabold border-2 p-2 rounded-lg bg-white bg-opacity-0 hover:bg-opacity-20 focus:bg-opacity-20 active:bg-opacity-20 disabled:text-gray-400 disabled:border-gray-500" formnovalidate disabled>
                 <div class=" font-extralight mt-4 text-xs text-white">
+                    <span class="text-red-400 font-semibold">
+                        <span class="underline font-extrabold">
+                            Your college ID card will be verified before you are allowed to compete
+                        </span>
+                        <br>
+                        Details cannot be modified once submitted.
+                    </span>
+                    <br>
                     Your name and gmail ID will be shown to your team members to help them identify you.
                     <br>
                     Your other details will be shared with the organisers of MITB FALAK (SURGE) 2023.
                 </div>
                 {#if invite && invite !== ""}
                     <input type="text" name="invite" value={invite} hidden>
+                {/if}
+                {#if regevent && regevent !== ""}
+                    <input type="text" name="regevent" value={regevent} hidden>
                 {/if}
             </form>
         </div>
@@ -120,7 +158,9 @@
 
 <style>
 
-
+    select > option{
+        color: black;
+    }
     .login-box h2 {
         margin: 0 0 10px;
         padding: 0;

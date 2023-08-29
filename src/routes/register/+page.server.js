@@ -2,7 +2,6 @@
 import {redirect} from "@sveltejs/kit";
 
 const lrRegex = new RegExp('^[a-z0-9._-]+@learner\\.manipal\\.edu$')
-const regnumRegex = new RegExp('^[0-9]+$')
 const phoneRegex = new RegExp('^[0-9]{10}$')
 import * as dotenv from 'dotenv' ;
 import { fail } from '@sveltejs/kit';
@@ -55,6 +54,7 @@ export const actions = {
         const phone = data.get('phone').trim() || null
 
         const invite = data.get("invite") || null
+        const regevent = data.get("regevent") || null
 
         if(!phoneRegex.test(phone) || !name || name?.length < 1){
             return fail(422, "Phone and name are needed")
@@ -65,24 +65,16 @@ export const actions = {
             return fail(422, "Invalid value for checkbox")
         }
 
-        const institute = data.get('institute').replaceAll(/[^A-Za-z0-9\s]/g, "").trim() || "NOT PROVIDED"
-        const regnum = data.get('regnum').toString().toLowerCase() || "NOT PROVIDED"
+        const institute = data.get('institute')?.replaceAll(/[^A-Za-z0-9\s]/g, "").replaceAll("MAHE-BENGALURU","").trim() || "NOT PROVIDED"
+        const regnum = data.get('regnum')?.toString().replaceAll(/[^0-9]/g, "").substring(0,10) || "NOT PROVIDED"
         const lremail = data.get('lremail')?.toLowerCase().trim() || "NOT PROVIDED"
-
+        const maheconstituent = data.get('maheconstituent')?.toUpperCase().trim().replaceAll(/[^A-Z]/g,"").substring(0,5)  || "NONE"
 
         /*validation for MAHE student*/
         if(mbstudent){
-
             if(!lrRegex.test(lremail) && lremail !== "NOT PROVIDED"){
                 return fail(422, {lremail, incorrect : true})
             }
-
-            if(!regnumRegex.test(regnum) && regnum !== "NOT PROVIDED"){
-                return fail(422, {regnum, incorrect:true})
-            }
-
-
-
         }
 
 
@@ -93,12 +85,13 @@ export const actions = {
             mahe: mbstudent,
             lremail: (mbstudent)?lremail: "",
             regnum: (mbstudent)?regnum: "",
-            institute: (!mbstudent)?institute:"MAHE BENGALURU",
+            institute: (!mbstudent)?institute:"MAHE-BENGALURU-"+maheconstituent,
             teams: []
         }
 
         await t_users.insertOne(doc)
 
-        throw redirect(302, (invite?"/invite/"+invite:"/"))
+        //redirect to invite page if they came from there, or to event registration page if they came from there.
+        throw redirect(302, (invite?"/invite/"+invite:(regevent?"/regevent/"+regevent:"/")))
     }
 }

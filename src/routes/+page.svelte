@@ -144,10 +144,11 @@
                     </div>
                 {/if}
             {/each}
+            <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md" on:click={() => {currentTeamIndex = -2; closeMenu()}}>
+                + Create or Join a team
+            </button>
         </div>
-        <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md" on:click={() => {currentTeamIndex = -2; closeMenu()}}>
-            + Create or Join a team
-        </button>
+
     </div>
 
 

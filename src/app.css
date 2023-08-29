@@ -23,3 +23,66 @@ html{
 
 .isnoval{
 }
+
+.blurinmenubkd{
+    animation-name: blurin;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+}
+
+.menumoveinleft{
+    animation-name: moveinfromleft;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+}
+
+
+.menumoveoutleft{
+    animation-name: moveoutfromleft;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+}
+
+.bluroutmenubkd{
+    animation-name: blurout;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes blurin {
+    0%{
+        backdrop-filter: blur(0px);
+    }
+    100%{
+        backdrop-filter: blur(12px);
+    }
+}
+
+@keyframes blurout {
+    90%{
+        backdrop-filter: blur(0px);
+    }
+    0%{
+        backdrop-filter: blur(12px);
+    }
+}
+
+@keyframes moveinfromleft{
+    0%{
+        transform: translateX(-100%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}
+
+@keyframes moveoutfromleft{
+    90%{
+        transform: translateX(-100%);
+    }
+
+    0%{
+        transform: translateX(0%);
+    }
+}

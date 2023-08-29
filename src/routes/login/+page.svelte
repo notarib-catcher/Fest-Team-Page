@@ -7,7 +7,8 @@
             const queryString = window.location.search
             const urlParams = new URLSearchParams(queryString)
             const invite = urlParams.get('invite')
-            signIn('google',{callbackUrl:(invite)?"/invite/"+invite:"/"})
+            const regevent = urlParams.get('regevent')
+            signIn('google',{callbackUrl:(invite?"/invite/"+invite:(regevent?"/regevent/"+regevent:"/"))})
         }
     })
 </script>

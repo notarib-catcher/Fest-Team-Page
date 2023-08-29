@@ -121,27 +121,33 @@
         <div class="relative bg-clip-text w-full h-[30px] border-b-2 border-blue-100  text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-2">Your Teams</div>
         <button class="absolute top-0 right-0 mt-0 mr-2 underline text-[#f6635c] pointer-events-auto z-30" on:click={() => signOut({callbackUrl:"/login"})}>Switch Account</button>
     </div>
-    {#each data.teams as team, i}
-        {#if currentTeamIndex != i}
-            <button class=" active:scale-95  hover:scale-105 transition-all duration-200 shadow-md relative flex items-center justify-center p-2 bg-white whitespace-normal whitespace-pre-wrap leftbaritem rounded-lg h-[70px] bg-opacity-70" on:click={ async () => { currentTeamIndex = i; closeMenu() }}>
-                <div class= " absolute m-auto lg:hidden text-black">
-                    {team.name.length > 15 ? team.name.substring(0,15) + "..." : team.name}
-                </div>
-                <div class= " absolute m-auto max-lg:hidden text-black">
-                    {team.name.length > 25 ? team.name.substring(0,25) + "..." : team.name}
-                </div>
-            </button>
-        {:else}
-            <div class="  shadow-md relative flex items-center justify-center p-2 bg-[#0ebaaa] whitespace-normal whitespace-pre-wrap leftbaritem rounded-lg h-[70px] bg-opacity-70">
-                <div class= " absolute m-auto lg:hidden text-white ">
-                    {team.name.length > 15 ? team.name.substring(0,15) + "..." : team.name}
-                </div>
-                <div class= " absolute m-auto max-lg:hidden text-white ">
-                    {team.name.length > 25 ? team.name.substring(0,25) + "..." : team.name}
-                </div>
-            </div>
-        {/if}
-    {/each}
+    <div class="h-full overflow-auto noscrollbar">
+        <div class=" h-fit pb-20">
+            {#each data.teams as team, i}
+                {#if currentTeamIndex != i}
+                    <button class=" active:scale-95  hover:scale-105 transition-all duration-200 shadow-md relative flex items-center justify-center p-2 bg-white whitespace-normal whitespace-pre-wrap leftbaritem rounded-lg h-[70px] bg-opacity-70" on:click={ async () => { currentTeamIndex = i; closeMenu() }}>
+                        <div class= " absolute m-auto lg:hidden text-black">
+                            {team.name.length > 15 ? team.name.substring(0,15) + "..." : team.name}
+                        </div>
+                        <div class= " absolute m-auto max-lg:hidden text-black">
+                            {team.name.length > 25 ? team.name.substring(0,25) + "..." : team.name}
+                        </div>
+                    </button>
+                {:else}
+                    <div class="  shadow-md relative flex items-center justify-center p-2 bg-[#0ebaaa] whitespace-normal whitespace-pre-wrap leftbaritem rounded-lg h-[70px] bg-opacity-70">
+                        <div class= " absolute m-auto lg:hidden text-white ">
+                            {team.name.length > 15 ? team.name.substring(0,15) + "..." : team.name}
+                        </div>
+                        <div class= " absolute m-auto max-lg:hidden text-white ">
+                            {team.name.length > 25 ? team.name.substring(0,25) + "..." : team.name}
+                        </div>
+                    </div>
+                {/if}
+            {/each}
+        </div>
+
+    </div>
+
     <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md" on:click={() => {currentTeamIndex = -2; closeMenu()}}>
         + Create or Join a team
     </button>

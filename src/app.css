@@ -59,7 +59,7 @@ html{
 }
 
 @keyframes blurout {
-    90%{
+    100%{
         backdrop-filter: blur(0px);
     }
     0%{
@@ -78,7 +78,7 @@ html{
 }
 
 @keyframes moveoutfromleft{
-    90%{
+    100%{
         transform: translateX(-100%);
     }
 

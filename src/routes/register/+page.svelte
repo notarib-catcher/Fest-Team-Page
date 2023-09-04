@@ -1,6 +1,8 @@
 <script>
     import {browser} from "$app/environment";
     import {onMount} from "svelte";
+    import {signOut} from "@auth/sveltekit/client";
+    export let data
 
     let name
     let phnum
@@ -54,85 +56,87 @@
 
     })
 </script>
-
-<div class="relative flex items-center justify-center w-[100dvw] h-[100dvh] bg-gradient-to-bl from-blue-500 to-purple-100">
-    <div class="w-full h-full md:w-[50%] md:min-h-[50%] md:max-h-fit lg:w-[40%] xl:w-[30%]  flex items-center justify-center">
-        <div class="login-box font-extralight">
-            <form method="POST">
-                <p class=" text-center text-white font-extrabold text-2xl mb-4">Create a Profile</p>
-                <h2 class="font-extrabold">
-                    Basic Info
-                </h2>
-                <div class="user-box">
-                    <input name="name" bind:value={name} type="text" maxlength="90" required>
-                    <label>
-                        Name (As on College ID)<span class="text-red-600 " hidden={validname}>*</span>
-                    </label>
-                </div>
-                <div class="user-box">
-                    <input name="phone" bind:value={phnum}   pattern="\d*"  type="text" maxlength="10" required>
-                    <label>
-                        Phone number (With WhatsApp)<span class="text-red-600 " hidden={validph}>*</span>
-                    </label>
-                </div>
-
-
-
-                <div>
-
-                </div>
-                <h2 class="font-extrabold">
-                    {#if mbstudent}
-                        Registration Details
-                    {:else}
-                        Institute Details
-                    {/if}
-                </h2>
-
-                <input name="mbstudent"  class="mb-3" bind:checked={mbstudent} type="checkbox" id="mbstudent">
-                <label for="mbstudent" class="text-white">Student of MAHE BLR?</label><br>
-
-                <div class="user-box">
-                    <input name="lremail" type="text" bind:this={lrem} bind:value={lemail} hidden={!mbstudent} required>
-                    <label hidden={!mbstudent}>
-                        Learner email
-                    </label>
-                </div>
-                <div class="user-box">
-                    <input name="regnum" type="text" bind:value={regnum}  bind:this={appnum} hidden={!mbstudent} maxlength="10" required>
-                    <label hidden={!mbstudent}>
-                        Registration Number
-                    </label>
-                </div>
-                <div class="text-white">
-                    <label hidden={!mbstudent}>
-                        Constituent Unit:
-                    </label>
-
-                    <select class="focus:outline-0 focus-within:outline-0 transition-all duration-300 bg-black bg-opacity-20 p-2 rounded-md" name="maheconstituent" list="constituents" hidden={!mbstudent} bind:value={constituent} required>
-                        <option value="">Select</option>
-                        <option value="MIT">MIT</option>
-                        <option value="SMI">SMI</option>
-                        <option value="DLHS">DLHS</option>
-                        <option value="DOC">DOC</option>
-                        <option value="MLS">MLS</option>
-                        <option value="TAPMI">TAPMI</option>
-                        <option value="DPP">DPP</option>
-                    </select>
-                </div>
-                <br hidden={!mbstudent}>
-
-                <div class="user-box">
-                    <input name="institute" type="text" bind:this={insname} bind:value={outinstitute} hidden={mbstudent} required>
-                    <label hidden={mbstudent}>
-                        Your Institute
-                    </label>
-                </div>
+<div class="fixed -z-50 left-0 top-0 w-[100dvw] h-[100dvh] bg-gradient-to-bl from-[#fe786f] to-[#f9baa8]">
+</div>
+<div class="w-screen h-[100dvh] overflow-scroll min-h-[100%]">
+    <div class="absolute  flex items-center justify-center w-[100dvw] min-h-full h-fit ">
+        <div class="w-full h-fit   md:w-[50%] md:min-h-[50%] md:max-h-fit lg:w-[40%] xl:w-[30%]  flex items-center justify-center">
+            <div class="login-box h-fit max-h-[95dvh] overflow-scroll font-extralight flex-col flex">
+                <form method="POST">
+                    <p class=" text-center text-white font-extrabold text-2xl mb-4">Create a Profile</p>
+                    <h2 class="font-extrabold">
+                        Basic Info
+                    </h2>
+                    <div class="user-box">
+                        <input name="name" bind:value={name} type="text" maxlength="90" required>
+                        <label>
+                            Name (As on College ID)<span class="text-red-600 " hidden={validname}>*</span>
+                        </label>
+                    </div>
+                    <div class="user-box">
+                        <input name="phone" bind:value={phnum}  type="text" maxlength="10" required>
+                        <label>
+                            Phone number (With WhatsApp)<span class="text-red-600 " hidden={validph}>*</span>
+                        </label>
+                    </div>
 
 
 
-                <input type="submit" bind:this={submitbtn} value="Submit" class=" disabled:bg-transparent transition-all duration-200 text-white font-extrabold border-2 p-2 rounded-lg bg-white bg-opacity-0 hover:bg-opacity-20 focus:bg-opacity-20 active:bg-opacity-20 disabled:text-gray-400 disabled:border-gray-500" formnovalidate disabled>
-                <div class=" font-extralight mt-4 text-xs text-white">
+                    <div>
+
+                    </div>
+                    <h2 class="font-extrabold">
+                        {#if mbstudent}
+                            Registration Details
+                        {:else}
+                            Institute Details
+                        {/if}
+                    </h2>
+
+                    <input name="mbstudent"  class="mb-3" bind:checked={mbstudent} type="checkbox" id="mbstudent">
+                    <label for="mbstudent" class="text-white">Student of MAHE BLR?</label><br>
+
+                    <div class="user-box">
+                        <input name="lremail" type="text" bind:this={lrem} bind:value={lemail} hidden={!mbstudent} required>
+                        <label hidden={!mbstudent}>
+                            Learner email
+                        </label>
+                    </div>
+                    <div class="user-box">
+                        <input name="regnum" type="text" bind:value={regnum}  bind:this={appnum} hidden={!mbstudent} maxlength="10" required>
+                        <label hidden={!mbstudent}>
+                            Registration Number
+                        </label>
+                    </div>
+                    <div class="text-white">
+                        <label hidden={!mbstudent}>
+                            Constituent Unit:
+                        </label>
+
+                        <select class="focus:outline-0 focus-within:outline-0 transition-all duration-300 bg-black bg-opacity-20 p-2 rounded-md" name="maheconstituent" list="constituents" hidden={!mbstudent} bind:value={constituent} required>
+                            <option value="">Select</option>
+                            <option value="MIT">MIT</option>
+                            <option value="SMI">SMI</option>
+                            <option value="DLHS">DLHS</option>
+                            <option value="DOC">DOC</option>
+                            <option value="MLS">MLS</option>
+                            <option value="TAPMI">TAPMI</option>
+                            <option value="DPP">DPP</option>
+                        </select>
+                    </div>
+                    <br hidden={!mbstudent}>
+
+                    <div class="user-box">
+                        <input name="institute" type="text" bind:this={insname} bind:value={outinstitute} hidden={mbstudent} required>
+                        <label hidden={mbstudent}>
+                            Your Institute
+                        </label>
+                    </div>
+
+
+
+                    <input type="submit" bind:this={submitbtn} value="Submit" class=" disabled:bg-transparent transition-all duration-200 text-white font-extrabold border-2 p-2 rounded-lg bg-white bg-opacity-0 hover:bg-opacity-20 focus:bg-opacity-20 active:bg-opacity-20 disabled:text-gray-400 disabled:border-gray-500" formnovalidate disabled>
+                    <div class=" font-extralight mt-4 text-xs text-white">
                     <span class="text-red-400 font-semibold">
                         <span class="underline font-extrabold">
                             Your college ID card will be verified before you are allowed to compete
@@ -140,23 +144,33 @@
                         <br>
                         Details cannot be modified once submitted.
                     </span>
-                    <br>
-                    Your name and gmail ID will be shown to your team members to help them identify you.
-                    <br>
-                    Your other details will be shared with the organisers of MITB FALAK (SURGE) 2023.
-                </div>
-                {#if invite && invite !== ""}
-                    <input type="text" name="invite" value={invite} hidden>
-                {/if}
-                {#if regevent && regevent !== ""}
-                    <input type="text" name="regevent" value={regevent} hidden>
-                {/if}
-            </form>
+                        <br>
+                        Your name and gmail ID will be shown to your team members to help them identify you.
+                        <br>
+                        Your other details will be shared with the organisers of MITB FALAK (SURGE) 2023.
+                    </div>
+                    {#if invite && invite !== ""}
+                        <input type="text" name="invite" value={invite} hidden>
+                    {/if}
+                    {#if regevent && regevent !== ""}
+                        <input type="text" name="regevent" value={regevent} hidden>
+                    {/if}
+                </form>
+                <br>
+                <span class="text-white">User:</span><span class="underline text-xs text-white">{data.email}</span>
+                <button class="bg-black mb-5 bg-opacity-20 p-1 rounded-md mt-4 text-xs italic text-white" on:click={() => {signOut({callbackUrl:window.location.pathname})}}>
+                    Not you? Switch Account
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
+
 <style>
+    body{
+        height: 100%;
+    }
 
     select > option{
         color: black;
@@ -172,7 +186,7 @@
         top: 50%;
         left: 50%;
         width: 350px;
-        padding: 40px;
+        padding: 20px 40px 10px 40px;
         transform: translate(-50%, -50%);
         background: rgba(0,0,0,.5);
         box-sizing: border-box;

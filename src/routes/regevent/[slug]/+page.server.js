@@ -37,6 +37,22 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     }
 }
 
+export const actions = {
+    default: async (event) => {
+        const session = await event.locals.getSession();
+
+        const slug = event.params.slug
+        if(!slug){
+            throw redirect(301, "/")
+        }
+
+        if(!(await checkIfAllowedToRegister(session.user.email, slug))){
+            throw redirect(302, "/")
+        }
+
+    }
+}
+
 const checkIfAllowedToRegister = async (email, event) => {
     //No checks at the moment, fix this later
     return true

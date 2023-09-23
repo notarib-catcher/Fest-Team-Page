@@ -8,7 +8,6 @@ import { fail } from '@sveltejs/kit';
 dotenv.config()
 
 import { MongoClient } from 'mongodb';
-import * as trace_events from "trace_events";
 
 const dbclient = new MongoClient(process.env.MONGO_URL);
 const database = dbclient.db(process.env.MONGO_DB_NAME);

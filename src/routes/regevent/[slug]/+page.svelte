@@ -20,9 +20,9 @@
             </div>
             <div class="flex gap-2 items-center text-white flex-row text-sm">
                 <div>
-                    <span class="font-extrabold ">NAME</span>
+                    <span class="font-extrabold ">{data.name}</span>
                     <br>
-                    <span class="">PHONE</span>
+                    <span class="">{data.phone}</span>
                 </div>
             </div>
         </div>

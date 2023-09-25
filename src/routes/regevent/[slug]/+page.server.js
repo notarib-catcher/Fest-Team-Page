@@ -33,9 +33,9 @@ const eventsToPasses = {
     "S_TT_F" : ["SPORT_TT_F"],
     "S_ATH" : ["SPORT_ATH"],
     "S_CHS" : ["SPORT_CHS"],
-    //"C_PRO" : ["CLTR_PRO"], No need to register
-    "C_BOB" : ["CLTR_BOB"],
-    "C_GRD" : ["CLTR_GRD"],
+    //"C_PRO" : ["CLTR_PRO"], //No need to register
+    //"C_BOB" : ["CLTR_BOB"], //Team event
+    //"C_GRD" : ["CLTR_GRD"], //Team event
     "C_FAS" : ["CLTR_FAS"],
     "C_STRSPL" : ["CLTR_PRO"],
     "C_THESHD" : ["CLTR_PRO"],

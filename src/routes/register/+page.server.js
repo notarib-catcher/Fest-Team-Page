@@ -55,6 +55,8 @@ export const actions = {
 
         const invite = data.get("invite") || null
         const regevent = data.get("regevent") || null
+        const createteam = data.get("createteam") || null
+
 
         if(!phoneRegex.test(phone) || !name || name?.length < 1){
             return fail(422, "Phone and name are needed")
@@ -91,7 +93,7 @@ export const actions = {
 
         await t_users.insertOne(doc)
 
-        //redirect to invite page if they came from there, or to event registration page if they came from there.
-        throw redirect(302, (invite?"/invite/"+invite:(regevent?"/regevent/"+regevent:"/")))
+        //redirect to invite page if they came from there, or to event registration page if they came from there, or to create team page if they came from there.
+        throw redirect(302, (invite?"/invite/"+invite:(regevent?"/regevent/"+regevent:(createteam?"/create/"+createteam:"/"))))
     }
 }

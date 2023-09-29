@@ -1,14 +1,12 @@
 import {redirect} from "@sveltejs/kit";
 
-const lrRegex = new RegExp('^[a-z0-9._-]+@learner\\.manipal\\.edu$')
-const regnumRegex = new RegExp('^[0-9]+$')
-const phoneRegex = new RegExp('^[0-9]{10}$')
 import * as dotenv from 'dotenv' ;
-import { fail } from '@sveltejs/kit';
+
+import {v4 as uuidV4} from "uuid";
 dotenv.config()
 
 import { MongoClient } from 'mongodb';
-import {uuidV4} from "mongodb/src/utils.js";
+
 
 const dbclient = new MongoClient(process.env.MONGO_URL);
 const database = dbclient.db(process.env.MONGO_DB_NAME);

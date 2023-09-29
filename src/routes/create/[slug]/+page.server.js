@@ -157,10 +157,10 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
 }
 
 const joincodecreator = async () => {
-    const letters = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let code = ""
     for(let i = 0 ; i < 5; i++){
-        let x = Math.floor(i*26)
+        let x = Math.floor(Math.random()*letters.length)
         code += letters[x]
     }
 

@@ -152,7 +152,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
 
     await t_teams.insertOne(newTeamDoc)
 
-    throw redirect(302, "/")
+    throw redirect(302, "/?team=" + newID)
 
 }
 

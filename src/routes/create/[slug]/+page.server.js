@@ -27,11 +27,9 @@ const eventsToPasses = {
     "S_TT_M" : ["SPORT_TT_M"], //Team event
     "S_BB_F" : ["SPORT_BB_F"], //Team event
     "S_TB_F" : ["SPORT_TB_F"], //Team event
-    "S_TN_F" : ["SPORT_TN_F"],
-    "S_TT_F" : ["SPORT_TT_F"],
-    "S_ATH" : ["SPORT_ATH"],
-    "S_CHS" : ["SPORT_CHS"],
-    //"C_PRO" : ["CLTR_PRO"], //No need to register
+    "S_TN_F" : ["SPORT_TN_F"], //Team event
+    "S_TT_F" : ["SPORT_TT_F"], //Team event
+    "S_CHS" : ["SPORT_CHS"], //Team event
     "C_BOB" : ["CLTR_BOB"], //Team event
     "C_GRD" : ["CLTR_GRD"], //Team event
     "C_FAS" : ["CLTR_FAS"],
@@ -61,11 +59,31 @@ const eventsToPasses = {
 
 }
 
+const maxmems = {
+    //sport team events
+    "S_TN_M" : 4,
+    "S_TN_F" : 4,
+    "S_TT_M" : 4,
+    "S_TT_F" : 4,
+    "S_FB_M" : 18,
+    "S_VB_M" : 12,
+    "S_TB_F" : 12,
+    "S_BB_M" : 12,
+    "S_BB_F" : 12,
+    "S_CHS" : 6,
+    //cultural events
+    "C_BOB" : 8,
+    "C_GRD" : 10,
+
+
+
+}
+
 export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} */ event) => {
 
     const session = await event.locals.getSession();
 
-    const slug = event.params.eventid
+    const slug = event.params.slug
     if (!slug) {
         throw redirect(302, "/")
     }
@@ -93,7 +111,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
 
     //event exists and is team event
     let allowed = false
-    for(let passtype of eventsToPasses[slug]){
+    for(let passtype of (eventsToPasses[slug] || ["NEXIST"])){
         const passDoc = await passes.findOne({email:session.user.email, type:passtype})
         if(passdoc){
             allowed = true
@@ -130,7 +148,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
                 email: session.user.email
             },
         ],
-        maxmem: 1000,
+        maxmem: maxmems[slug] || 1000,
         name: curr_user.name + "-" + slug
     }
 

@@ -29,10 +29,10 @@ const eventsToPasses = {
     //"S_TT_M" : ["SPORT_TT_M"], //Team event
     //"S_BB_F" : ["SPORT_BB_F"], //Team event
     //"S_TB_F" : ["SPORT_TB_F"], //Team event
-    "S_TN_F" : ["SPORT_TN_F"],
-    "S_TT_F" : ["SPORT_TT_F"],
+    // "S_TN_F" : ["SPORT_TN_F"],
+    // "S_TT_F" : ["SPORT_TT_F"],
     "S_ATH" : ["SPORT_ATH"],
-    "S_CHS" : ["SPORT_CHS"],
+    // "S_CHS" : ["SPORT_CHS"],
     //"C_PRO" : ["CLTR_PRO"], //No need to register
     //"C_BOB" : ["CLTR_BOB"], //Team event
     //"C_GRD" : ["CLTR_GRD"], //Team event

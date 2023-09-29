@@ -139,7 +139,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
         allowjoin: true,
         owner : session.user.email,
         ownername : curr_user.name,
-        joincode : joincodecreator(),
+        joincode : await joincodecreator(),
         members: [
             {
                 name: curr_user.name,
@@ -169,6 +169,6 @@ const joincodecreator = async () => {
         return code
     }
     else{
-        return joincodecreator()
+        return await joincodecreator()
     }
 }

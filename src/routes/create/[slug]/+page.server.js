@@ -111,7 +111,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     let allowed = false
     for(let passtype of (eventsToPasses[slug] || ["NEXIST"])){
         const passDoc = await passes.findOne({email:session.user.email, type:passtype})
-        if(passdoc){
+        if(passDoc){
             allowed = true
             break
         }

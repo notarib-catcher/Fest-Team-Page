@@ -52,6 +52,7 @@ const eventsToPasses = {
     "C_MKTMHM": ["CLTR_PRO", "SUP_PRO"], //team, 3
     "C_CINCRF": ["CLTR_PRO", "SUP_PRO"], //team, 4
     "C_BTLBAB": ["CLTR_PRO", "SUP_PRO"], //team, 2
+    //"C_LOGLYM": ["CLTR_PRO", "SUP_PRO"], //solo
 
     //Esports
     "ES_BGDMHM" : ["ESPORTS"], //team, 4

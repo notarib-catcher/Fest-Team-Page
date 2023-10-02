@@ -27,21 +27,7 @@ export const handle = SvelteKitAuth({
     })],
 
     secret: process.env.SECRET,
-    trustHost: true,
-    cookies: {
-        sessionToken: {
-            name: process.env.NODE_ENV === 'production'
-                ? `__Secure-next-auth.session-token`
-                : `next-auth.session-token`,
-            options: {
-                httpOnly: true,
-                sameSite: 'lax',
-                domain: '.mitblrfest.in',
-                path: '/',
-                secure: process.env.NODE_ENV === 'production'
-            }
-        },
-    }
+    trustHost: true
 })
 
 // @ts-ignore

@@ -133,7 +133,7 @@
     </div>
     <div class="relative mb-2">
         <div class="relative bg-clip-text w-full h-[30px] border-b-2 border-blue-100  text-transparent bg-gradient-to-bl from-[#f6635c] to-[#f6635c] pl-2">Your Teams</div>
-        <button class="absolute top-0 right-0 mt-0 mr-2 underline text-[#f6635c] pointer-events-auto z-30" on:click={() => signOut({callbackUrl:"/login"})} hidden>Switch Account</button>
+        <button class="absolute top-0 right-0 mt-0 mr-2 underline text-[#f6635c] pointer-events-auto z-30" on:click={() => signOut({callbackUrl:"/login"})} >Switch Account</button>
     </div>
     <div class="h-full overflow-auto noscrollbar">
         <div class=" h-fit pb-20">

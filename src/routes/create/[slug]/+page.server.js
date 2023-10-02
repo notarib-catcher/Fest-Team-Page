@@ -52,13 +52,15 @@ const eventsToPasses = {
     "C_MKTMHM": ["CLTR_PRO", "SUP_PRO"], //team, 3
     "C_CINCRF": ["CLTR_PRO", "SUP_PRO"], //team, 4
     "C_BTLBAB": ["CLTR_PRO", "SUP_PRO"], //team, 2
-    //"C_LOGLYM": ["CLTR_PRO", "SUP_PRO"], //solo
+    // "C_ECHOES": ["CLTR_PRO", "SUP_PRO"], //solo
+    // "C_LOGLYM": ["CLTR_PRO", "SUP_PRO"], //solo REMOVED
+    "C_SRGSAF": ["CLTR_PRO", "SUP_PRO"], //team, 4
 
-    //Esports
-    "ES_BGDMHM" : ["ESPORTS"], //team, 4
-    "ES_VALRIS" : ["ESPORTS"], //team, 7
-    "ES_CODEXE" : ["ESPORTS"], //team, 5
-    "ES_CRWQST" : ["ESPORTS"], //team, 2
+    //Esports - ALL WERE MADE SOLO
+    // "ES_BGDMHM" : ["ESPORTS"], //team, 4
+    // "ES_VALRIS" : ["ESPORTS"], //team, 7
+    // "ES_CODEXE" : ["ESPORTS"], //team, 5
+    // "ES_CRWQST" : ["ESPORTS"], //team, 2
     // "ES_GOLQST" : ["ESPORTS"]  //solo
 }
 
@@ -91,13 +93,14 @@ const maxmems = {
     "C_MKTMHM": 3,
     "C_CINCRF": 4,
     "C_BTLBAB": 2,
+    "C_SRGSAF": 4,
 
     //esports events
 
-    "ES_BGDMHM": 4,
-    "ES_VALRIS": 7,
-    "ES_CODEXE": 5,
-    "ES_CRWQST": 2
+    // "ES_BGDMHM": 4,
+    // "ES_VALRIS": 7,
+    // "ES_CODEXE": 5,
+    // "ES_CRWQST": 2
 
 
 

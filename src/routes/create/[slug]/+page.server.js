@@ -55,6 +55,8 @@ const eventsToPasses = {
     // "C_ECHOES": ["CLTR_PRO", "SUP_PRO"], //solo
     // "C_LOGLYM": ["CLTR_PRO", "SUP_PRO"], //solo REMOVED
     "C_SRGSAF": ["CLTR_PRO", "SUP_PRO"], //team, 4
+    "C_BRNWAV": ["CLTR_PRO", "SUP_PRO"],
+    "C_QZAPLZ": ["CLTR_PRO", "SUP_PRO"],
 
     //Esports - ALL WERE MADE SOLO
     // "ES_BGDMHM" : ["ESPORTS"], //team, 4
@@ -94,6 +96,8 @@ const maxmems = {
     "C_CINCRF": 4,
     "C_BTLBAB": 2,
     "C_SRGSAF": 4,
+    "C_BRNWAV": 4,
+    "C_QZAPLZ": 4,
 
     //esports events
 

@@ -159,7 +159,7 @@
                 {/if}
             {/each}
             <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md" on:click={() => {currentTeamIndex = -2; closeMenu()}}>
-                + Create or Join a team
+                + Join a team
             </button>
         </div>
 
@@ -196,7 +196,7 @@
                 {/if}
             {/each}
             <button class=" active:scale-95  hover:scale-105 transition-all duration-200 bg-white leftbaritem rounded-lg h-[70px] bg-opacity-70 font-extralight shadow-md" on:click={() => {currentTeamIndex = -2}}>
-                + Create or Join a team
+                + Join a team
             </button>
         </div>
 
@@ -287,9 +287,10 @@
                         </div>
                     </div>
                     <div class=" mt-2 w-full text-center text-black text-opacity-40">
-                        or
+                        To create a team, go to<br>
+                        <span class="text-xs">Event page > Press More info on an event > Create a team</span><br>
+                        <a href="https://falak.mitblrfest.in/events" class="underline font-bold">(link)</a>
                     </div>
-                    <a href="#" class="absolute  text-[#f6635c] translate-y-8 bottom-0 w-full text-center text-2xl underline">Create a team</a>
                 </div>
             </div>
         {:else}

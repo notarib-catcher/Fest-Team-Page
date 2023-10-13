@@ -14,7 +14,7 @@
     let invcode
     const hitkey = async (e) => {
 
-        if(invcode.length !== 6){
+        if(invcode.length !== 5){
             return
         }
 

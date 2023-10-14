@@ -116,7 +116,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
     //No team with same event on this account - check if eligible
 
 
-    if(cteam.event.startsWith("C_") && cteam.event.length >= 6){
+    if((cteam.event.startsWith("C_") && cteam.event.length >= 6) || cteam.event === "C_FAS"){
 
         //pass is needed
 

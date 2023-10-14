@@ -216,8 +216,13 @@
                 <div class=" px-4 py-2 bg-gradient-to-bl from-[#f6635c] to-[#f6635c] bg-clip-text text-transparent">
                     {#if currentTeam.owner != data.user.email}
                         <span class="font-normal">Owned by</span> {currentTeam.ownername} ({currentTeam.owner})
+
                     {:else}
                         <span class="font-normal">Owned by </span> <span class="  font-bold "> you.</span>
+                        <form id="delteamform" method="POST" action="?/delteam">
+                            <input type="text" name="_id" value={data.teams[currentTeamIndex]._id} hidden>
+                        </form>
+                        <button form="delteamform" type="submit" class="underline text-[#f6635c] pointer-events-auto font-bold">Delete this team</button>
                     {/if}
                     <br>
                     {#if currentTeam.allowjoin}
@@ -253,13 +258,13 @@
                                             </div>
 
                                         {:else if member.email === data.user.email}
-                                            <form id={"kickselfform" + i} hidden method="POST">
+                                            <form id={"kickselfform" + i} hidden method="POST" action="?/kick">
                                                 <input name="email" type="text" value={member.email} hidden>
                                                 <input name="_id" type="text" value={currentTeam._id} hidden>
                                             </form>
                                             <button form={"kickselfform" + i} type="submit" class="ctcbtn" ><span class="tooltip pointer-events-none bg-black bg-opacity-70 text-white absolute left-0 whitespace-nowrap p-1 -translate-x-[60px] -translate-y-[2px] rounded-md">Leave</span><img class="relative  bg-black bg-opacity-0 hover:bg-opacity-10 active:scale-105 transition-all duration-200 p-1 rounded-lg box-content" src={leave} width="20px" height="20px"></button>
                                         {:else if currentTeam.owner === data.user.email}
-                                            <form id={"kickform" + i} hidden method="POST">
+                                            <form id={"kickform" + i} hidden method="POST" action="?/kick">
                                                 <input name="email" type="text" value={member.email} hidden>
                                                 <input name="_id" type="text" value={currentTeam._id} hidden>
                                             </form>

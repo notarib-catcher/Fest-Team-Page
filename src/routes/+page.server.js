@@ -40,7 +40,7 @@ export const load =  async (/** @type {{ locals: { getSession: () => any; }; }} 
 }
 
 export const actions = {
-    default: async (event) => {
+    kick: async (event) => {
         const session = await event.locals.getSession()
 
         if (!session?.user) {
@@ -108,6 +108,56 @@ export const actions = {
         await t_teams.findOneAndUpdate({_id: teamID}, {$set: team})
 
         throw redirect(302, "/?rsuccess=yes&team=" + teamID)
+
+
+    },
+
+    delteam: async (event) => {
+        const session = await event.locals.getSession()
+
+        if (!session?.user) {
+            throw redirect(302, '/login'); //Not logged in => No access
+        }
+
+        const curr_user = await t_users.findOne({email:session.user.email})
+        if(!curr_user){
+            throw redirect(302,'/')
+        }
+
+        const request = event.request
+        const data = await request.formData()
+
+
+
+        const teamID = data.get('_id')
+
+        if(!teamID){
+            return fail(400, "malformed")
+        }
+
+        const team = await t_teams.findOne({_id: teamID})
+
+        if(!team){
+            return fail(404, "No team found")
+        }
+        //check if owner
+        if(session.user.email !== team.owner){
+            return fail(403, "Need to be owner")
+        }
+
+
+
+        delete team._id
+
+        team.members = []
+
+        team.allowjoin = false
+
+        team.owner = team.owner += "--FLAG:DELETE"
+
+        await t_teams.findOneAndUpdate({_id: teamID}, {$set: team})
+
+        throw redirect(302, "/?rsuccess=yes")
 
 
     }
